@@ -3,6 +3,8 @@ name = "ulanzi-linux"
 version = "0.1.0"
 description = "Web app to manage Ulanzi D200 / D200H (U-Studio) stream decks on Linux"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "Flávio Codeço Coelho", email = "fccoelho@gmail.com" }
 ]

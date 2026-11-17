@@ -161,3 +161,8 @@ browser UI ──REST/WebSocket──> FastAPI (web.py)
 
 Icons: [Font Awesome Free](https://fontawesome.com) (icons CC BY 4.0, fonts SIL OFL 1.1), bundled in
 `static/vendor/fontawesome`.
+
+## License
+
+[MIT](LICENSE) © 2026 Flávio Codeço Coelho. The bundled Font Awesome Free files keep their own
+licenses (icons CC BY 4.0, fonts SIL OFL 1.1); see `src/ulanzi_linux/static/vendor/fontawesome/LICENSE.txt`.
