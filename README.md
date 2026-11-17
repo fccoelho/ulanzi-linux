@@ -137,6 +137,13 @@ e.g. `ctrl+alt+t`, `super+e`, `ctrl+shift+esc`, `f5`, `playpause`, `volup`.
 | Deck shows its default layout | Settings → *Re-send layout to device*, or replug. |
 | OBS actions fail | Run `uv sync --extra obs` and check the host, port and password in Settings. |
 
+## Report your device
+
+Only the D200H (U-Studio) has been tested so far. If you try another model (D200, D200X, D100H…),
+or another distribution or desktop, please
+[open a device report](https://github.com/fccoelho/ulanzi-linux/issues/new?template=device-report.yml),
+whether it works or not. It takes two minutes and tells others what they can expect.
+
 ## How it works
 
 ```

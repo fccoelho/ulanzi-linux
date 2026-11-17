@@ -1,0 +1,131 @@
+name: Device report
+description: Tell us how ulanzi-linux works with your Ulanzi deck (working or not)
+title: "[Device] <model> on <distro>"
+labels: ["device-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing! Reports from **working** setups are just as useful as broken ones:
+        they tell other people which models and systems are safe to buy or use.
+
+  - type: dropdown
+    id: model
+    attributes:
+      label: Device model
+      options:
+        - D200
+        - D200H (U-Studio)
+        - D200X
+        - D100H
+        - Other (write it below)
+    validations:
+      required: true
+
+  - type: input
+    id: model-other
+    attributes:
+      label: Other model / hardware revision
+      placeholder: "e.g. D200 with docking hub, bought 2026"
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Overall result
+      options:
+        - Works fully
+        - Works partially
+        - Not detected / does not work
+    validations:
+      required: true
+
+  - type: textarea
+    id: lsusb
+    attributes:
+      label: lsusb output
+      description: "Output of: `lsusb | grep -iE '2207|18d1|ulanzi'` (with the deck plugged in)"
+      render: text
+    validations:
+      required: true
+
+  - type: dropdown
+    id: connection
+    attributes:
+      label: How is the deck connected?
+      options:
+        - Directly to the computer
+        - Through a USB 2.0 hub
+        - Through a USB 3 hub / dock
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: features
+    attributes:
+      label: What works?
+      description: Tick everything you tested successfully
+      options:
+        - label: Deck is detected (green status pill)
+        - label: Key icons and titles appear on the deck
+        - label: Key presses trigger actions
+        - label: Hotkeys / text reach applications
+        - label: Two-state keys update on the deck
+        - label: Info window (clock / stats / background)
+        - label: Brightness and screen sleep
+        - label: Dials / encoders (D200X, D100H)
+        - label: OBS Studio actions
+
+  - type: input
+    id: distro
+    attributes:
+      label: Distribution and version
+      placeholder: "e.g. Ubuntu 26.04, Fedora 45, Arch"
+    validations:
+      required: true
+
+  - type: input
+    id: desktop
+    attributes:
+      label: Desktop and session type
+      description: "Output of: `echo $XDG_CURRENT_DESKTOP $XDG_SESSION_TYPE`"
+      placeholder: "e.g. KDE wayland"
+    validations:
+      required: true
+
+  - type: input
+    id: kernel
+    attributes:
+      label: Kernel
+      description: "Output of: `uname -r`"
+
+  - type: input
+    id: version
+    attributes:
+      label: ulanzi-linux version
+      description: "Output of: `git rev-parse --short HEAD` in your clone"
+    validations:
+      required: true
+
+  - type: textarea
+    id: firmware
+    attributes:
+      label: Firmware info
+      description: Shown in the app under Settings → Device → Firmware info (if connected)
+      render: text
+
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened?
+      description: Anything that didn't work, error banners, or workarounds you needed
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        Run `uv run ulanzi-linux -v`, reproduce the problem, and paste the output.
+        If the deck is not detected, `sudo dmesg | grep -iA3 usb | tail -40` also helps.
+      render: text
