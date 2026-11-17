@@ -3,6 +3,8 @@
 A FastAPI web app that manages Ulanzi **D200 / D200H (U-Studio)** stream decks on Linux,
 modelled on the official Ulanzi Studio app (Windows/macOS only).
 
+![Ulanzi Studio for Linux: deck preview, action library and key inspector](docs/screenshot.png)
+
 - **Device preview**: the 13 LCD keys and the wide info window, with live press feedback from the deck.
 - **Action library**: drag actions onto keys (or double-click an action to put it on the selected key).
   - *System*: Hotkey, Hotkey Switch, Open, Launch App, Website, Text, Run Command, Multimedia, Volume,

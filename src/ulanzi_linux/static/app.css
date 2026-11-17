@@ -24,6 +24,7 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html, body { height: 100%; }
+* { scrollbar-color: #3a404b transparent; scrollbar-width: thin; }
 body { margin: 0; background: var(--bg); color: var(--text); font-size: 13px; overflow: hidden; }
 button, input, select, textarea { font: inherit; color: inherit; }
 .muted { color: var(--muted); }
