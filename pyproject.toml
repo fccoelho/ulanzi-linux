@@ -1,0 +1,30 @@
+[project]
+name = "ulanzi-linux"
+version = "0.1.0"
+description = "Web app to manage Ulanzi D200 / D200H (U-Studio) stream decks on Linux"
+readme = "README.md"
+authors = [
+    { name = "Flávio Codeço Coelho", email = "fccoelho@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "evdev>=2.0.0",
+    "fastapi>=0.163.1",
+    "hidapi>=0.15.0",
+    "pillow>=13.0.0",
+    "pydantic>=2.14.3",
+    "python-multipart>=0.0.34",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.scripts]
+ulanzi-linux = "ulanzi_linux:main"
+
+[project.optional-dependencies]
+obs = [
+    "obsws-python>=1.8.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.20,<0.13.0"]
+build-backend = "uv_build"

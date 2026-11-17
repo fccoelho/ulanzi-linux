@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ulanzi Studio for Linux</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23161a20'/%3E%3Cg fill='%233d7bfd'%3E%3Crect x='5' y='7' width='6' height='6' rx='1.5'/%3E%3Crect x='13' y='7' width='6' height='6' rx='1.5'/%3E%3Crect x='21' y='7' width='6' height='6' rx='1.5'/%3E%3Crect x='5' y='16' width='6' height='6' rx='1.5'/%3E%3Crect x='13' y='16' width='6' height='6' rx='1.5'/%3E%3Crect x='21' y='16' width='6' height='6' rx='1.5'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><span class="logo"></span><b>ULANZI</b><span class="muted">Studio for Linux</span></div>
+    <div class="device-pill" id="devicePill"><span class="dot"></span><span id="deviceName">Searching…</span></div>
+    <div class="spacer"></div>
+    <label class="profile-select">
+      <span class="muted">Profile</span>
+      <select id="profileSelect"></select>
+    </label>
+    <button class="icon-btn" id="profileMenuBtn" title="Profile options">⋯</button>
+    <div class="brightness" title="Brightness">
+      <span class="fa-glyph">&#xf185;</span>
+      <input type="range" id="brightness" min="0" max="100">
+      <span id="brightnessVal" class="muted">80%</span>
+    </div>
+    <button class="icon-btn" id="settingsBtn" title="Settings"><span class="fa-glyph">&#xf013;</span></button>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <main class="workspace">
+    <section class="stage">
+      <div class="crumbs" id="crumbs"></div>
+      <div class="deck-wrap">
+        <div class="deck" id="deck"></div>
+      </div>
+      <div class="pagebar" id="pagebar"></div>
+    </section>
+
+    <aside class="library">
+      <div class="lib-head">
+        <input id="actionSearch" type="search" placeholder="Search actions">
+      </div>
+      <div class="lib-list" id="actionList"></div>
+      <div class="lib-foot muted">Drag an action onto a key</div>
+    </aside>
+  </main>
+
+  <section class="inspector" id="inspector"></section>
+</div>
+
+<!-- Icon editor -->
+<dialog id="iconDialog" class="modal wide">
+  <form method="dialog" class="modal-head"><h3>Edit Icon</h3><button class="icon-btn" value="cancel">✕</button></form>
+  <div class="icon-editor">
+    <div class="ie-preview">
+      <canvas id="iePreview" width="196" height="196"></canvas>
+      <div class="ie-controls">
+        <label>Background <input type="color" id="ieBg"></label>
+        <div class="swatches" id="ieSwatches"></div>
+        <label>Glyph colour <input type="color" id="ieFg"></label>
+        <label>Glyph size <input type="range" id="ieScale" min="20" max="90"></label>
+        <label>Image fit
+          <select id="ieFit"><option value="cover">Fill</option><option value="contain">Fit</option><option value="pad">Fit with padding</option></select>
+        </label>
+        <label class="row"><input type="checkbox" id="ieRound"> Rounded tile</label>
+      </div>
+    </div>
+    <div class="ie-source">
+      <div class="tabs" id="ieTabs">
+        <button data-tab="glyph" class="active">Icon library</button>
+        <button data-tab="upload">Image</button>
+        <button data-tab="apps">App icons</button>
+      </div>
+      <div class="ie-tab" data-tab="glyph">
+        <input type="search" id="glyphSearch" placeholder="Search 2000+ icons (e.g. microphone, obs, play)">
+        <div class="glyph-grid" id="glyphGrid"></div>
+      </div>
+      <div class="ie-tab" data-tab="upload" hidden>
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="ieFile" accept="image/*" hidden>
+          <span class="fa-glyph big">&#xf093;</span>
+          <span>Drop an image here or click to choose<br><small class="muted">PNG, JPG, GIF (first frame), WebP, SVG — shown at 196×196</small></span>
+        </label>
+      </div>
+      <div class="ie-tab" data-tab="apps" hidden>
+        <input type="search" id="appIconSearch" placeholder="Search installed applications">
+        <div class="glyph-grid apps" id="appIconGrid"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-foot">
+    <button class="btn" id="ieClear">No icon</button>
+    <div class="spacer"></div>
+    <button class="btn" id="ieCancel">Cancel</button>
+    <button class="btn primary" id="ieSave">Apply</button>
+  </div>
+</dialog>
+
+<!-- Settings -->
+<dialog id="settingsDialog" class="modal">
+  <form method="dialog" class="modal-head"><h3>Settings</h3><button class="icon-btn" value="cancel">✕</button></form>
+  <div class="modal-body" id="settingsBody"></div>
+</dialog>
+
+<!-- Generic prompt / confirm -->
+<dialog id="promptDialog" class="modal small">
+  <form method="dialog">
+    <div class="modal-head"><h3 id="promptTitle"></h3></div>
+    <div class="modal-body">
+      <p id="promptText" class="muted"></p>
+      <input id="promptInput" type="text">
+    </div>
+    <div class="modal-foot"><div class="spacer"></div>
+      <button class="btn" value="cancel" formnovalidate>Cancel</button>
+      <button class="btn primary" value="ok" id="promptOk">OK</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="ctx-menu" id="ctxMenu" hidden></div>
+<div class="toasts" id="toasts"></div>
+<input type="file" id="importFile" accept=".json,application/json" hidden>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

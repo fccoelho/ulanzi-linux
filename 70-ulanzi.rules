@@ -1,0 +1,7 @@
+# Install as /etc/udev/rules.d/70-ulanzi.rules -- the number must be below 73,
+# otherwise systemd's 73-seat-late.rules has already applied "uaccess" ACLs.
+# Ulanzi D200 / D200H (U-Studio) stream controller: HID access for the logged-in user
+SUBSYSTEM=="usb", ATTRS{idVendor}=="2207", ATTRS{idProduct}=="0019", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+KERNEL=="hidraw*", ATTRS{idVendor}=="2207", ATTRS{idProduct}=="0019", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+# Virtual keyboard used to send hotkeys / text (needed on Wayland)
+KERNEL=="uinput", SUBSYSTEM=="misc", MODE="0660", GROUP="input", TAG+="uaccess", OPTIONS+="static_node=uinput"
